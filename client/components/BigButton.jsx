@@ -34,7 +34,7 @@ function BigButton(props){
 
             const totalMinutes = (Date.now() - startTime) / 60000; 
             setStart(0);
-            const points = props.uv * totalMinutes
+            const points = props.uv * totalMinutes;
 
             addSession(props.username, new Date().toDateString(), points);
         } else {
