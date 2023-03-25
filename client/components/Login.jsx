@@ -1,18 +1,29 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from "react-router-dom"
 
 
 function Login(){
+    const [zipcodeEntry, zipcodeUpdate] = useState(0);
+    const [nameEntry, nameUpdate] = useState('');
+
+    const handleChange =  () => {
+         zipcodeUpdate(document.getElementById('zipcodeInput').value); 
+         nameUpdate((document.getElementById('nameInput').value.toUpperCase()));
+       
+    
+        };
     return (
         <div>
 
             <form>
                 <label htmlFor="username">Your name:</label>
-                <input name="username"></input>
+                <input id = "nameInput" name="username" onChange={handleChange}></input>
                 <label htmlFor="zipcode">Your zip code:</label>
-                <input name="zipcode"></input>
+                <input id="zipcodeInput" name="zipcode" onChange={handleChange}></input>
             </form>
-            <button><Link to="/home">GET SUNNY</Link></button>
+            
+                
+            <button><Link to="/home" state={{zipcodeEntry: zipcodeEntry, nameEntry: nameEntry}}>GET SUNNY</Link></button>
         </div>
         
 
@@ -20,7 +31,7 @@ function Login(){
 
 }
 
-export default Login
+export default Login;
 
 // function Form() {
 //   const handleSubmit = (event) => {

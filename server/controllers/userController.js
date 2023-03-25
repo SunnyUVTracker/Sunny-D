@@ -40,4 +40,15 @@ userController.updateUser = async (req, res, next) => {
     });
   }
 };
+
+userController.getUser = (req, res, next) => {
+  const { username } = req.params;
+  User.findOne({ username: username })
+    .then((data) => {
+      if (data) res.locals.data = data.days.pop();
+      else res.locals.data = 0;
+      return next();
+    });
+};
+
 module.exports = userController;

@@ -4,10 +4,10 @@ const userController = require('./controllers/userController');
 // const path = require('path');
 
 const URI =
-  'mongodb+srv://SunnyD:SunnyD@sunnyd.zoziq2e.mongodb.net/?retryWrites=true&w=majority';
+  'const uri = "mongodb+srv://pjkty:JJKYty97%21@cluster.kkyleu9.mongodb.net/?retryWrites=true&w=majority";';
 
 // Data Base
-mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost/SunnyD', { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.once('open', () => {
   console.log('Connected to Database');
 });
@@ -20,6 +20,10 @@ app.use(express.static('public'));
 
 const api = express.Router();
 app.use('/api', api);
+
+api.get('/submit/:username', userController.getUser, (req, res)=>{
+  return res.status(200).json(res.locals.data);
+})
 
 // Record Button Click Route
 // Date, Points, Username
@@ -38,7 +42,6 @@ app.use((err, req, res, next) => {
     message: { err: 'An error occurred' },
   };
   const errorObj = Object.assign({}, defaultErr, err);
-  console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });
 
