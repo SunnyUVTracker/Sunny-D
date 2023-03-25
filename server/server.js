@@ -1,9 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const userController = require('./controllers/userController');
 // const path = require('path');
 
+const URI =
+  'mongodb+srv://SunnyD:SunnyD@sunnyd.zoziq2e.mongodb.net/?retryWrites=true&w=majority';
+
 // Data Base
-mongoose.connect('', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.once('open', () => {
   console.log('Connected to Database');
 });
@@ -12,11 +16,16 @@ mongoose.connection.once('open', () => {
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-//app.use(express.static('client'));
+app.use(express.static('public'));
 
-// User Login Route
+const api = express.Router();
+app.use('/api', api);
 
 // Record Button Click Route
+// Date, Points, Username
+api.post('/submit', userController.updateUser, (req, res) => {
+  return res.status(200).json(res.locals.totalPoints);
+});
 
 // Unknown route handler
 app.use((req, res) => res.sendStatus(404));
