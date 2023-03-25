@@ -15,6 +15,7 @@ function BigButton(props){
             },
             body: JSON.stringify({username: username, date: date, points: points})
         })
+        .then(response => response.json())
         .then((response) => {
             updatePoints(response);
         })
@@ -34,7 +35,8 @@ function BigButton(props){
 
             const totalMinutes = (Date.now() - startTime) / 60000; 
             setStart(0);
-            const points = props.uv * totalMinutes
+            const points = props.uv * totalMinutes;
+            console.log(points)
 
             addSession(props.username, new Date().toDateString(), points);
         } else {
@@ -51,7 +53,7 @@ function BigButton(props){
                 {isOutside ? 'YOU\'RE OUTSIDE! GO INSIDE?' : 'YOU\'RE INSIDE! GO OUTSIDE?'}
             </button>
             <div>
-                Total points: {totalPoints}
+                Total points: {totalPoints.toFixed(3)}
             </div>
            
         </div>

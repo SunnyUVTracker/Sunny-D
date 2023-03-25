@@ -3,6 +3,8 @@ const User = require('../userModel');
 const userController = {};
 
 userController.updateUser = async (req, res, next) => {
+  console.log(req.body)
+  console.log("--here--")
   try {
     const { username, date, points } = req.body;
     const user = await User.findOne({ username });

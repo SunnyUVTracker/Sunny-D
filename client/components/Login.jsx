@@ -4,11 +4,13 @@ import { Link } from "react-router-dom"
 
 function Login(){
     const [zipcodeEntry, zipcodeUpdate] = useState(0);
-    const [nameEntry, nameUpdate] = useState('')
+    const [nameEntry, nameUpdate] = useState('');
 
     const handleClick = () => {
         zipcodeUpdate(document.getElementById('zipcodeInput').value); 
-        nameUpdate((document.getElementById('nameInput').value.toUpperCase()))
+        nameUpdate((document.getElementById('nameInput').value.toUpperCase()));
+       window.location.href = '/#/home';
+       // <Link to="/home" state={{zipcodeEntry, nameEntry}}>GET SUNNY</Link>
         };
     return (
         <div>
@@ -21,7 +23,7 @@ function Login(){
             </form>
             <button onClick = {handleClick}>Save info</button>
                 
-            <button><Link to="/home" state={{zipcodeEntry, nameEntry}}>GET SUNNY</Link></button>
+            {/* <button><Link to="/home" info={{zipcodeEntry: document.getElementById('zipcodeInput').value, nameEntry: document.getElementById('nameInput').value.toUpperCase()}}>GET SUNNY</Link></button> */}
         </div>
         
 
@@ -29,7 +31,7 @@ function Login(){
 
 }
 
-export default Login
+export default Login;
 
 // function Form() {
 //   const handleSubmit = (event) => {

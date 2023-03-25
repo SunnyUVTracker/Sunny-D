@@ -4,10 +4,10 @@ const userController = require('./controllers/userController');
 // const path = require('path');
 
 const URI =
-  'mongodb+srv://SunnyD:SunnyD@sunnyd.zoziq2e.mongodb.net/?retryWrites=true&w=majority';
+  'const uri = "mongodb+srv://pjkty:JJKYty97%21@cluster.kkyleu9.mongodb.net/?retryWrites=true&w=majority";';
 
 // Data Base
-mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost/SunnyD', { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.once('open', () => {
   console.log('Connected to Database');
 });
@@ -23,7 +23,7 @@ app.use('/api', api);
 
 // Record Button Click Route
 // Date, Points, Username
-api.post('/submit', userController.updateUser, (req, res) => {
+api.post('/submit', userController.updateUser, (req, res) => {console.log(res.locals.totalPoints)
   return res.status(200).json(res.locals.totalPoints);
 });
 

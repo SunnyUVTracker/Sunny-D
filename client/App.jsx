@@ -9,11 +9,11 @@ function App(){
 
         <Router>
             <Routes>
-                <Route path = "/" element = {<Login/>}/>
-                <Route path = "/home" element = {<Home  />}/>
+                <Route path = "/" element = {<Login />}/>
+                <Route path = "/home" element = {<Home />}/>
             </Routes>
         </Router>
     )
 }
 
-export default App
+export default App;
