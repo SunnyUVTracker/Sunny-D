@@ -6,24 +6,24 @@ function Login(){
     const [zipcodeEntry, zipcodeUpdate] = useState(0);
     const [nameEntry, nameUpdate] = useState('');
 
-    const handleClick = () => {
-        zipcodeUpdate(document.getElementById('zipcodeInput').value); 
-        nameUpdate((document.getElementById('nameInput').value.toUpperCase()));
-       window.location.href = '/#/home';
-       // <Link to="/home" state={{zipcodeEntry, nameEntry}}>GET SUNNY</Link>
+    const handleChange =  () => {
+         zipcodeUpdate(document.getElementById('zipcodeInput').value); 
+         nameUpdate((document.getElementById('nameInput').value.toUpperCase()));
+       
+    
         };
     return (
         <div>
 
             <form>
                 <label htmlFor="username">Your name:</label>
-                <input id = "nameInput" name="username"></input>
+                <input id = "nameInput" name="username" onChange={handleChange}></input>
                 <label htmlFor="zipcode">Your zip code:</label>
-                <input id="zipcodeInput" name="zipcode"></input>
+                <input id="zipcodeInput" name="zipcode" onChange={handleChange}></input>
             </form>
-            <button onClick = {handleClick}>Save info</button>
+            
                 
-            {/* <button><Link to="/home" info={{zipcodeEntry: document.getElementById('zipcodeInput').value, nameEntry: document.getElementById('nameInput').value.toUpperCase()}}>GET SUNNY</Link></button> */}
+            <button><Link to="/home" state={{zipcodeEntry: zipcodeEntry, nameEntry: nameEntry}}>GET SUNNY</Link></button>
         </div>
         
 

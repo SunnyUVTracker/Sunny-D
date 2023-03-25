@@ -3,8 +3,6 @@ const User = require('../userModel');
 const userController = {};
 
 userController.updateUser = async (req, res, next) => {
-  console.log(req.body)
-  console.log("--here--")
   try {
     const { username, date, points } = req.body;
     const user = await User.findOne({ username });
@@ -42,4 +40,15 @@ userController.updateUser = async (req, res, next) => {
     });
   }
 };
+
+userController.getUser = (req, res, next) => {
+  const { username } = req.params;
+  User.findOne({ username: username })
+    .then((data) => {
+      if (data) res.locals.data = data.days.pop();
+      else res.locals.data = 0;
+      return next();
+    });
+};
+
 module.exports = userController;

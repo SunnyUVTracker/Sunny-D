@@ -21,9 +21,13 @@ app.use(express.static('public'));
 const api = express.Router();
 app.use('/api', api);
 
+api.get('/submit/:username', userController.getUser, (req, res)=>{
+  return res.status(200).json(res.locals.data);
+})
+
 // Record Button Click Route
 // Date, Points, Username
-api.post('/submit', userController.updateUser, (req, res) => {console.log(res.locals.totalPoints)
+api.post('/submit', userController.updateUser, (req, res) => {
   return res.status(200).json(res.locals.totalPoints);
 });
 
@@ -38,7 +42,6 @@ app.use((err, req, res, next) => {
     message: { err: 'An error occurred' },
   };
   const errorObj = Object.assign({}, defaultErr, err);
-  console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });
 

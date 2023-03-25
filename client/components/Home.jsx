@@ -6,15 +6,13 @@ import WeatherDisplay from './WeatherDisplay.jsx'
 function Home(){
     const location  = useLocation()
     // const {zipcodeEntry} = location.state.zipcodeEntry;
-    console.log(location)
-    console.log(location.state)
+
     //console.log("State in home page", props.info)
 
     const [temp, updateTemp] = useState(0);
     const [uv, updateUv] = useState(0);
     const [condition, updateCondition] = useState('');
-    // const [zipcodeEntry, zipcodeUpdate] = useState(location.info.zipcodeEntry);
-    // const [nameEntry, nameUpdate] = useState(location.info.nameEntry)
+
 
     useEffect(() => {
         fetch(`http://api.weatherapi.com/v1/current.json?key=3b98cf2d582f413d83c172329232503&q=${location.state.zipcodeEntry}`)
@@ -27,14 +25,13 @@ function Home(){
             .catch((err) => {console.log('Error in weather api call: ', err)})
     })
 
-    console.log(temp, uv, condition)
-    // const { zipcode } = location.state;
-    // console.log(zipcode) 
+    
+
     return (
         <div>
-            <h1>HELLO {nameEntry}!</h1>
-            <WeatherDisplay zipcodeEntry = {zipcodeEntry} temp={temp} uv={uv} condition={condition}/>
-            <BigButton username = {nameEntry} uv={uv}/>
+            <h1>HELLO {location.state.nameEntry}!</h1>
+            <WeatherDisplay zipcodeEntry = {location.state.zipcodeEntry} temp={temp} uv={uv} condition={condition}/>
+            <BigButton username = {location.state.nameEntry} uv={uv}/>
         </div>
     )
 }
