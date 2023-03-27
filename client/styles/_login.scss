@@ -10,6 +10,7 @@ body {
   height: 100vh;
   display: flex;
   justify-content: center;
+	margin: 0;
 }
 
 #loginElements {
@@ -109,31 +110,6 @@ h1 {
   font-weight: 400;
 }
 
-// <progress>
-//     ┗ <div> ::-webkit-progress-bar
-//          ┗ <div>::-webkit-progress-value
-//
-// ::-webkit-progress-inner-element {
-//   border: 2px solid black;
-// }
-
-// progress {
-//   -webkit-appearance: none;
-// 	border-radius: 10px;
-// }
-// ::-webkit-progress-value {
-//   background-color: orange;
-// 	border-radius: 10px;
-// }
-// ::-webkit-progress-bar {
-// 	background-color: rgb(215, 215, 215);
-// 	border-radius: 10px;
-//   // margin: 10px;
-//   // margin-bottom: 0;
-//   // width: 90%;
-//   // height: 50px;
-// }
-
 progress {
   opacity: 0;
 }
@@ -151,41 +127,6 @@ progress {
   background-color: orange;
   height: 100%;
 }
-
-
-// #progress-container::before {
-// 	background: orange;
-// 	border-radius: 20px;
-// }
-
-// .d-progress {
-//   position: relative;
-//   width: 100%;
-//   height: 20px;
-//   border-radius: 10px;
-//   background-color: orange;
-//   overflow: hidden;
-// }
-
-// .d-progress::before {
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   bottom: 0;
-//   width: calc((var(--progress-value) / var(--progress-max)) * 100%);
-//   background-color: orange;
-//   border-radius: 10px;
-// }
-
-
-// @keyframes progress-animation {
-//   0% {
-//     width: 0%;
-//   }
-//   100% {
-//     width: calc((var(--progress-value) / var(--progress-max)) * 100%);
-//   }
-// }
 
 #big-button {
   width: 75vw;
@@ -211,6 +152,7 @@ progress {
 }
 
 #developer {
+	color: rgb(255, 158, 203);
   display: flex;
   align-items: center;
   margin-inline: 12px;
