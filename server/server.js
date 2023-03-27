@@ -1,10 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const userController = require('./controllers/userController');
-// const path = require('path');
+const path = require('path');
 
-const URI =
-  'const uri = "mongodb+srv://pjkty:JJKYty97%21@cluster.kkyleu9.mongodb.net/?retryWrites=true&w=majority";';
 
 // Data Base
 mongoose.connect('mongodb://localhost/SunnyD', { useNewUrlParser: true, useUnifiedTopology: true });
@@ -20,6 +18,13 @@ app.use(express.static('public'));
 
 const api = express.Router();
 app.use('/api', api);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use('/build', express.static(path.join(__dirname, '../build')));
+  app.get('/', (req, res) => {
+    return res.status(200).sendFile(path.join(__dirname, '../index.html'))
+});
+}
 
 api.get('/submit/:username', userController.getUser, (req, res)=>{
   return res.status(200).json(res.locals.data);
