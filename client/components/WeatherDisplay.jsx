@@ -5,14 +5,14 @@ function WeatherDisplay(props) {
     <div id="weatherDisplay">
       <div className="dataCard">
         <div className="data-card-title">Temp: </div>
-          <p style={{ "font-size": "26px" }}>{props.temp}°F</p>
+          <p style={{"fontSize": "26px"}}>{props.temp}°F</p>
       </div>
         <div className="dataCard">
           <div className="data-card-title">Condition: </div>
           <p
             style={{
-              "background-image": `url(${props.condition})`,
-              "background-size": "100% 100%",
+              "backgroundImage": `url(${props.condition})`,
+              "backgroundSize": "100% 100%",
               height: "60px",
               width: "60px",
             }}
@@ -20,7 +20,7 @@ function WeatherDisplay(props) {
         </div>
         <div className="dataCard">
           <div className="data-card-title">UV Index: </div>
-          <p style={{ "font-size": "26px" }}>{props.uv}</p>
+          <p style={{"fontSize": "26px"}}>{props.uv}</p>
         </div>
       </div>
   );

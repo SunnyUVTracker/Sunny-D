@@ -5,6 +5,7 @@ import WeatherDisplay from "./WeatherDisplay.jsx";
 
 function Home() {
   const location = useLocation();
+  console.log(location)
 
   const [temp, updateTemp] = useState(0);
   const [uv, updateUv] = useState(0);
