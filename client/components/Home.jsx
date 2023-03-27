@@ -1,46 +1,68 @@
-import React, {useState, useEffect} from 'react'
-import { useLocation } from 'react-router-dom'
-import BigButton from './BigButton.jsx'
-import WeatherDisplay from './WeatherDisplay.jsx'
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import BigButton from "./BigButton.jsx";
+import WeatherDisplay from "./WeatherDisplay.jsx";
 
-function Home(){
-    const location  = useLocation()
-    // const {zipcodeEntry} = location.state.zipcodeEntry;
+function Home() {
+  const location = useLocation();
 
-    //console.log("State in home page", props.info)
+  const [temp, updateTemp] = useState(0);
+  const [uv, updateUv] = useState(0);
+  const [condition, updateCondition] = useState("");
+  const [city, updateCity] = useState("");
+  const [region, updateRegion] = useState("");
 
-    const [temp, updateTemp] = useState(0);
-    const [uv, updateUv] = useState(0);
-    const [condition, updateCondition] = useState('');
-
-
-    useEffect(() => {
-        fetch(`http://api.weatherapi.com/v1/current.json?key=3b98cf2d582f413d83c172329232503&q=${location.state.zipcodeEntry}`)
-            .then(res => res.json())
-            .then(res => {
-                updateTemp(res.current.temp_f);
-                updateUv(res.current.uv);
-                updateCondition(res.current.condition.text)
-            })
-            .catch((err) => {console.log('Error in weather api call: ', err)})
-    })
-
-    
-
-    return (
-        <div>
-            <h1>HELLO {location.state.nameEntry}!</h1>
-            <WeatherDisplay zipcodeEntry = {location.state.zipcodeEntry} temp={temp} uv={uv} condition={condition}/>
-            <BigButton username = {location.state.nameEntry} uv={uv}/>
-        </div>
+  useEffect(() => {
+    fetch(
+      `http://api.weatherapi.com/v1/current.json?key=3b98cf2d582f413d83c172329232503&q=${location.state.zipcodeEntry}`
     )
+      .then((res) => res.json())
+      .then((res) => {
+        updateTemp(res.current.temp_f);
+        updateUv(res.current.uv);
+        updateCondition(res.current.condition.icon);
+        updateCity(res.location.name);
+        updateRegion(res.location.region);
+      })
+      .catch((err) => {
+        console.log("Error in weather api call: ", err);
+      });
+  });
+
+  return (
+    <div id="home-page">
+      <div id="content">
+        <div>
+          <h1>HELLO, {location.state.nameEntry}!</h1>
+          <div id="city">
+            {city}, {region}
+          </div>
+
+          <WeatherDisplay
+            zipcodeEntry={location.state.zipcodeEntry}
+            temp={temp}
+            uv={uv}
+            condition={condition}
+            city={city.toUpperCase()}
+            region={region.toUpperCase()}
+          />
+        </div>
+
+        <BigButton username={location.state.nameEntry} uv={uv} />
+      </div>
+      <div id="footer">
+        <div id="developer">
+          Developed by: 
+        </div>
+        <div className="armadillo-img"></div>
+      </div>
+    </div>
+  );
 }
 
+export default Home;
+
 // http://api.weatherapi.com/v1/current.json?key=3b98cf2d582f413d83c172329232503&q=
-
-export default Home; 
-
-
 
 // {
 //     "location": {
