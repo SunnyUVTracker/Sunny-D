@@ -51,13 +51,17 @@ function BigButton(props) {
   };
 
   return (
-    <div>
-      <button onClick={handleClick}>
+    <div id="d-meter">
+      <div>D-Meter: {totalPoints.toFixed(2)}%</div>
+      <div id="progress-container">
+        <div id="loading" style={{ width: `${totalPoints}%` }}></div>
+      </div>
+      <br />
+      <button id="big-button" onClick={handleClick}>
         {isOutside
           ? "YOU'RE OUTSIDE! GO INSIDE?"
           : "YOU'RE INSIDE! GO OUTSIDE?"}
       </button>
-      <div>Total points: {totalPoints.toFixed(2)} / 100</div>
     </div>
   );
 }

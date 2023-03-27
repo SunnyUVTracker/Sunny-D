@@ -5,15 +5,12 @@ import WeatherDisplay from "./WeatherDisplay.jsx";
 
 function Home() {
   const location = useLocation();
-  // const {zipcodeEntry} = location.state.zipcodeEntry;
-
-  //console.log("State in home page", props.info)
 
   const [temp, updateTemp] = useState(0);
   const [uv, updateUv] = useState(0);
   const [condition, updateCondition] = useState("");
-  const [city, updateCity] = useState('');
-  const [region, updateRegion] = useState('');
+  const [city, updateCity] = useState("");
+  const [region, updateRegion] = useState("");
 
   useEffect(() => {
     fetch(
@@ -23,7 +20,7 @@ function Home() {
       .then((res) => {
         updateTemp(res.current.temp_f);
         updateUv(res.current.uv);
-        updateCondition(res.current.condition.text);
+        updateCondition(res.current.condition.icon);
         updateCity(res.location.name);
         updateRegion(res.location.region);
       })
@@ -33,24 +30,39 @@ function Home() {
   });
 
   return (
-    <div>
-      <h1>HELLO {location.state.nameEntry}!</h1>
-      <WeatherDisplay
-        zipcodeEntry={location.state.zipcodeEntry}
-        temp={temp}
-        uv={uv}
-        condition={condition}
-        city={city.toUpperCase()}
-        region={region.toUpperCase()}
-      />
-      <BigButton username={location.state.nameEntry} uv={uv} />
+    <div id="home-page">
+      <div id="content">
+        <div>
+          <h1>HELLO, {location.state.nameEntry}!</h1>
+          <div id="city">
+            {city}, {region}
+          </div>
+
+          <WeatherDisplay
+            zipcodeEntry={location.state.zipcodeEntry}
+            temp={temp}
+            uv={uv}
+            condition={condition}
+            city={city.toUpperCase()}
+            region={region.toUpperCase()}
+          />
+        </div>
+
+        <BigButton username={location.state.nameEntry} uv={uv} />
+      </div>
+      <div id="footer">
+        <div id="developer">
+          Developed by: 
+        </div>
+        <div className="armadillo-img"></div>
+      </div>
     </div>
   );
 }
 
-// http://api.weatherapi.com/v1/current.json?key=3b98cf2d582f413d83c172329232503&q=
-
 export default Home;
+
+// http://api.weatherapi.com/v1/current.json?key=3b98cf2d582f413d83c172329232503&q=
 
 // {
 //     "location": {
