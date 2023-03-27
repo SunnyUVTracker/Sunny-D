@@ -10,20 +10,30 @@ function Login() {
     nameUpdate(document.getElementById("nameInput").value.toUpperCase());
   };
   return (
-    <div>
-      <form>
-        <label htmlFor="username">Your name:</label>
-        <input id="nameInput" name="username" onChange={handleChange}></input>
-        <label htmlFor="zipcode">Your zip code:</label>
-        <input id="zipcodeInput" name="zipcode" onChange={handleChange}></input>
+    <div id="loginElements">
+      <form className="flex">
+        {/* <label htmlFor="username">Your name:</label> */}
+        <input
+          id="nameInput"
+          name="username"
+          placeholder="Name"
+          onChange={handleChange}
+        ></input>
+        {/* <label htmlFor="zipcode">Your zip code:</label> */}
+        <input
+          id="zipcodeInput"
+          name="zipcode"
+          placeholder="Zip Code"
+          onChange={handleChange}
+        ></input>
       </form>
 
-      <button>
+      <button id="loginButton">
         <Link
           to="/home"
           state={{ zipcodeEntry: zipcodeEntry, nameEntry: nameEntry }}
         >
-          GET SUNNY
+          <div className="sunnyD-img"></div>
         </Link>
       </button>
     </div>
