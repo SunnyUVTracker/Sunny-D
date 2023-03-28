@@ -34,6 +34,11 @@ function Login() {
           <div className="sunnyD-img"></div>
         </Link>
       </button>
+      <button id='signupButton'>
+        <Link to="/signup">
+          Signup for the Sunny-D
+        </Link>
+      </button>
     </div>
   );
 }
