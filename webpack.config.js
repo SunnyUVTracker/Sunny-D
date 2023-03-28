@@ -22,9 +22,9 @@ module.exports = {
                         ],
                     }
                 }
-            }, 
+            },
             {
-                test:/\.s[ac]ss$/i,
+                test: /\.s[ac]ss$/i,
                 exclude: /node_modules/,
                 use: [
                     'style-loader',
@@ -38,17 +38,17 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'Development',
             template: './index.html',
-          }),
+        }),
     ],
     devServer: {
         static: {
-          publicPath: '/build',
-          directory: path.resolve(__dirname, 'build'),
+            publicPath: '/build',
+            directory: path.resolve(__dirname, 'build'),
         },
         proxy: {
-          '/api': 'http://localhost:3000/',
+            '/api': 'http://localhost:3000/',
         },
-				compress: true,
-				port: 8080,
-      },
+        compress: true,
+        port: 8080,
+    },
 }

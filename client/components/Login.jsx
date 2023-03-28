@@ -11,7 +11,6 @@ import {
 	Typography,
 	Avatar,
 } from '@material-ui/core';
-import logo from '../../images/logo.png';
 
 const styles = {
 	paper: {
@@ -30,28 +29,29 @@ const styles = {
 };
 
 const Login = () => {
-	const [email, setEmail] = useState('');
+	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [isSigningUp, setIsSigningUp] = useState(false); // Track whether user is signing up or not
 	const [name, setName] = useState('');
 
 	const handleLogin = (event) => {
 		event.preventDefault();
+		console.log('frontend: ' + username, password);
 		const body = JSON.stringify({
-			email,
+			username,
 			password
 		})
-		fetch('/api/login', { method: 'POST', body })
+		fetch('/api/login', { method: 'POST', body, headers: { 'Content-Type': 'application/json' }})
 	};
 
 	const handleSignUp = (event) => {
 		event.preventDefault();
 		const body = JSON.stringify({
-			email,
+			username,
 			password,
 			name
 		})
-		fetch('/api/signup', { method: 'POST', body })
+		fetch('/api/signup', { method: 'POST', body, headers: { 'Content-Type': 'application/json' }})
 	};
 
 	const handleSignUpClick = () => {
@@ -88,12 +88,12 @@ const Login = () => {
 							margin="normal"
 							required
 							fullWidth
-							id="email"
-							label="Email Address"
-							name="email"
-							autoComplete="email"
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
+							id="username"
+							label="Username"
+							name="username"
+							autoComplete="username"
+							value={username}
+							onChange={(e) => setUsername(e.target.value)}
 						/>
 						<TextField
 							variant="outlined"
@@ -133,12 +133,12 @@ const Login = () => {
 							margin="normal"
 							required
 							fullWidth
-							id="email"
-							label="Email Address"
-							name="email"
-							autoComplete="email"
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
+							id="username"
+							label="Username"
+							name="username"
+							autoComplete="username"
+							value={username}
+							onChange={(e) => setUsername(e.target.value)}
 							autoFocus
 						/>
 						<TextField

@@ -30,7 +30,9 @@ userController.createUser = async (req, res, next) => {
 userController.logIn = async (req, res, next) => {
   try {
     const date = new Date().toDateString();
+    console.log(req.body);
     const { username, password } = req.body;
+    console.log(username, password);
     const user = await User.findOne({ username });
     // Check password
     const match = await user.comparePassword(password);
