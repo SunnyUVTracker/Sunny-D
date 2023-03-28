@@ -1,4 +1,5 @@
-const {MongoClient} = require('mongodb')
+const {MongoClient} = require('mongodb');
+const userController = require('../server/controllers/userController');
 
 
 describe('insert', () => {
@@ -26,4 +27,8 @@ describe('insert', () => {
       const insertedUser = await users.findOne({_id: 'some-user-id'});
       expect(insertedUser).toEqual(mockUser);
     });
+
+    // it('should add a new user to the database', async () => {
+       
+    // })
   });

@@ -4,7 +4,7 @@
   "description": "Codesmith ECRI39 Scratch project",
   "main": "webpack.config.js",
   "scripts": {
-    "test": "jest",
+    "test": "NODE_ENV=test jest --verbose",
     "start": "NODE_ENV=production nodemon server/server.js",
     "build": "NODE_ENV=production webpack",
     "dev": "concurrently \"nodemon server/server.js\" \"NODE_ENV=development webpack serve --open --hot\"",
@@ -21,15 +21,15 @@
     "url": "https://github.com/Pink-Fairy-Armadillo-39/SunnyD/issues"
   },
   "homepage": "https://github.com/Pink-Fairy-Armadillo-39/SunnyD#readme",
-  "jest": {
-    "preset": "@shelf/jest-mongodb"
-  },
+  
   "devDependencies": {
     "@babel/core": "^7.21.3",
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
     "@shelf/jest-mongodb": "^4.1.7",
+    "babel-cli": "^6.26.0",
     "babel-loader": "^9.1.2",
+    "babel-preset-env": "^1.7.0",
     "css-loader": "^6.7.3",
     "eslint": "^8.36.0",
     "html-webpack-plugin": "^5.5.0",
@@ -40,6 +40,8 @@
     "sass": "^1.60.0",
     "sass-loader": "^13.2.1",
     "style-loader": "^3.3.2",
+    "superagent": "^8.0.9",
+    "supertest": "^6.3.3",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.13.1"
   },
@@ -48,6 +50,7 @@
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "concurrently": "^7.6.0",
+    "cross-env": "^7.0.3",
     "express": "^4.18.2",
     "mongoose": "^7.0.3",
     "nodemon": "^2.0.22",
