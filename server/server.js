@@ -38,7 +38,13 @@ api.post('/submit', userController.updateUser, (req, res) => {
   return res.status(200).json(res.locals.totalPoints);
 });
 
+api.post('/signup', userController.createUser, (req, res) => {
+  return res.status(200).json(res.locals.newUser);
+});
 
+api.post('/verify', userController.logIn, (req, res) => {
+  return res.status(200).json(res.locals.user);
+});
 // Unknown route handler
 app.use((req, res) => res.sendStatus(404));
 

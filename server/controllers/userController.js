@@ -71,14 +71,39 @@ userController.getUser = (req, res, next) => {
 };
 
 userController.createUser = (req, res, next) => {
-  const { username, password } = req.body;
-  const newUser = User.create({ username: username, password: password })
+  const { username, password, zipcodeEntry } = req.body;
+  const newUser = User.create({ username: username, password: password, zipcodeEntry: zipcodeEntry })
   return next();
-}
+};
 
 
 
 
+userController.logIn = (req, res, next) => {
+  console.log('in login controller')
+  const { username, password } = req.body;
+  User.findOne({ username: username })
+    .then((user) => {
+      console.log('in first then block')
+      if (!user) {
+        console.log('in first conditional')
+        res.locals.status = false;
+        return next(err);
+      } else {
+        console.log('in else statement')
+        user.comparePassword(password, (err, isMatch) => {
+          if (err) return next(err);
+          res.locals.status = isMatch;
+          res.locals.user = user;
+          return next();
+        });
+      }
+    })
+    .catch((err) => {
+      console.log('in error catcher')
+      return next(err);
+    });
+};
 
 
 

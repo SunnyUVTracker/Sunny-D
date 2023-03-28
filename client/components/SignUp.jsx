@@ -16,9 +16,9 @@ function SignUp() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username: nameEntry,
+          username: username,
           password: password,
-          zipcodeEntry: zipcodeEntry
+          zipcode: zipcode
         }),
       })
       .then((data) => console.log(data));
