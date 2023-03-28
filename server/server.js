@@ -24,6 +24,8 @@ if (process.env.NODE_ENV === 'production') {
   app.get('/', (req, res) => {
     return res.status(200).sendFile(path.join(__dirname, '../index.html'))
 });
+} else {
+  app.get('/home', (req, res) => res.redirect('/'));
 }
 
 api.get('/submit/:username', userController.getUser, (req, res)=>{
@@ -36,8 +38,10 @@ api.post('/submit', userController.updateUser, (req, res) => {
   return res.status(200).json(res.locals.totalPoints);
 });
 
+
 // Unknown route handler
 app.use((req, res) => res.sendStatus(404));
+
 
 // Global error handler
 app.use((err, req, res, next) => {
