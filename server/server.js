@@ -36,6 +36,10 @@ api.post('/submit', userController.updateUser, (req, res) => {
   return res.status(200).json(res.locals.totalPoints);
 });
 
+api.post('/create', userController.createUser, (req, res) => {
+  return res.status(200).json(res.locals.newUser);
+})
+
 // Unknown route handler
 app.use((req, res) => res.sendStatus(404));
 

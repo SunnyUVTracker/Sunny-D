@@ -73,6 +73,7 @@ userController.getUser = (req, res, next) => {
 userController.createUser = (req, res, next) => {
   const { username, password } = req.body;
   const newUser = User.create({ username: username, password: password })
+  res.locals.newUser = newUser;
   return next();
 }
 
