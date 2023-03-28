@@ -46,7 +46,7 @@ module.exports = {
           directory: path.resolve(__dirname, 'build'),
         },
         proxy: {
-          '/api': 'http://localhost:3000/',
+          '/api/*': 'http://localhost:3000/',
           '/home': 'http://localhost:3000/'
         },
 				compress: true,
