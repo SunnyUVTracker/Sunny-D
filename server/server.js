@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 const userController = require('./controllers/userController');
 const path = require('path');
 
+const URI = 'mongodb+srv://pj:cs39@cluster.kkyleu9.mongodb.net/SunnyD2?retryWrites=true&w=majority';
 
 // Data Base
-mongoose.connect('mongodb://localhost/SunnyD', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.once('open', () => {
   console.log('Connected to Database');
 });
@@ -26,15 +27,21 @@ if (process.env.NODE_ENV === 'production') {
 });
 }
 
-api.get('/submit/:username', userController.getUser, (req, res)=>{
-  return res.status(200).json(res.locals.data);
-})
-
-// Record Button Click Route
-// Date, Points, Username
-api.post('/submit', userController.updateUser, (req, res) => {
-  return res.status(200).json(res.locals.totalPoints);
+//Sign Up
+api.post('/signup', userController.createUser, (req, res) => {
+  return res.status(200).json(res.locals.created);
 });
+
+//Log In 
+api.post('/login', userController.logIn, (req, res) => {
+  return res.status(200).json(res.locals.userInfo);
+});
+
+//Update user points
+api.post('/update', userController.updateUser, (req, res) => {
+  return res.sendStatus(200);
+});
+
 
 // Unknown route handler
 app.use((req, res) => res.sendStatus(404));
@@ -47,6 +54,7 @@ app.use((err, req, res, next) => {
     message: { err: 'An error occurred' },
   };
   const errorObj = Object.assign({}, defaultErr, err);
+  console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });
 

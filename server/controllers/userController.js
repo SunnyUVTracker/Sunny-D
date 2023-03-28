@@ -2,36 +2,80 @@ const User = require('../userModel');
 
 const userController = {};
 
-userController.updateUser = async (req, res, next) => {
+userController.createUser = async (req, res, next) => {
   try {
-    const { username, date, points } = req.body;
+    //deconstruct username, password
+    const { name, username, password } = req.body;
+    //find if there is already a user
     const user = await User.findOne({ username });
+    //if there is not a user, create one
     if (!user) {
-      const newUser = await User.create({ username, days: [{ date, points }] });
-      res.locals.totalPoints = points;
+      const newUser = await User.create({ name, username, password, days: [{ date: new Date().toDateString(), points: 0 }] });
+      res.locals.created = true;
       return next();
+      //if there is already that username in database
     } else {
-      const index = user.days.length - 1;
-      const currentDate = user.days[index];
-      const newPoints = currentDate.points + points;
-      if (currentDate.date === date) {
-        const update = await User.findOneAndUpdate(
-          { username },
-          { $set: { [`days.${index}.points`]: newPoints } },
-          { new: true }
-        );
-        res.locals.totalPoints = update.days[index].points;
+      res.locals.created = false;
+      return next();
+    }
+  } catch (err) {
+    return next({
+      log: 'Error in userController.createUser: ' + err,
+      status: 418,
+      message: { err: 'An error occurred in userController.createUser' },
+    });
+  }
+}
+
+userController.logIn = async (req, res, next) => {
+  try {
+    const date = new Date().toDateString();
+    const { username, password } = req.body;
+    const user = await User.findOne({ username });
+    // Check password
+    const match = await user.comparePassword(password);
+    // If password and hash match
+    if (match) {
+      const { id, name, days } = user;
+      const index = days.length - 1;
+      const currentDate = days[index].date;
+      // If last date in days array is today, send back points
+      if (currentDate === date) {
+        res.locals.userInfo = { id, name, points: days[index].points }
         return next();
+        // Otherwise, create new date in days array and set points to 0
       } else {
         const update = await User.findOneAndUpdate(
           { username },
-          { $push: { days: { date, points } } },
-          { new: true }
+          { $push: { days: { date, points: 0 } } }
         );
-        res.locals.totalPoints = points;
+        res.locals.userInfo = { id, name, points: 0 }
         return next();
       }
+      // If password and hash don't match
+    } else {
+      return next();
     }
+  } catch (err) {
+    return next({
+      log: 'Error in userController.logIn: ' + err,
+      status: 418,
+      message: { err: 'An error occurred in userController.logIn' },
+    });
+  }
+}
+
+userController.updateUser = async (req, res, next) => {
+  try {
+    const { username, points } = req.body;
+    const user = await User.findOne({ username });
+    const index = user.days.length - 1;
+    const update = await User.updateOne(
+      { username },
+      { $set: { [`days.${ index }.points`]: points } },
+      { new: true }
+    );
+    return next();
   } catch (err) {
     return next({
       log: 'Error in userController.updateUser: ' + err,
@@ -39,16 +83,6 @@ userController.updateUser = async (req, res, next) => {
       message: { err: 'An error occurred in userController.updateUser' },
     });
   }
-};
-
-userController.getUser = (req, res, next) => {
-  const { username } = req.params;
-  User.findOne({ username: username })
-    .then((data) => {
-      if (data) res.locals.data = data.days.pop();
-      else res.locals.data = 0;
-      return next();
-    });
 };
 
 module.exports = userController;
