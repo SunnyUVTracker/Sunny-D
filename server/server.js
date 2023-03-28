@@ -1,13 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const userController = require('./controllers/userController');
-// const path = require('path');
+const path = require('path');
 
-const URI =
-  'mongodb+srv://SunnyD:SunnyD@sunnyd.zoziq2e.mongodb.net/?retryWrites=true&w=majority';
 
 // Data Base
-mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://sunnyDTeam:test1234@sunnyd.gewq7u7.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.once('open', () => {
   console.log('Connected to Database');
 });
@@ -20,6 +18,17 @@ app.use(express.static('public'));
 
 const api = express.Router();
 app.use('/api', api);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use('/build', express.static(path.join(__dirname, '../build')));
+  app.get('/', (req, res) => {
+    return res.status(200).sendFile(path.join(__dirname, '../index.html'))
+});
+}
+
+api.get('/submit/:username', userController.getUser, (req, res)=>{
+  return res.status(200).json(res.locals.data);
+})
 
 // Record Button Click Route
 // Date, Points, Username
@@ -38,7 +47,6 @@ app.use((err, req, res, next) => {
     message: { err: 'An error occurred' },
   };
   const errorObj = Object.assign({}, defaultErr, err);
-  console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });
 
