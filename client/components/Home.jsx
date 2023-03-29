@@ -27,7 +27,7 @@ function Home() {
         updateCity(res.location.name);
         updateRegion(res.location.region);
         //
-        if(res.current.uv > 4) {
+        if(res.current.uv > 5) {
           setSunscreenAlert("Put on sunscreen!");
         }
       })
@@ -37,7 +37,7 @@ function Home() {
   });
 
   
-  
+
 
 
 
