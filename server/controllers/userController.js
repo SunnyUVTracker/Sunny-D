@@ -70,9 +70,11 @@ userController.getUser = (req, res, next) => {
     });
 };
 
-userController.createUser = (req, res, next) => {
+userController.createUser = async (req, res, next) => {
   const { username, password, zipcodeEntry } = req.body;
-  const newUser = User.create({ username: username, password: password, zipcodeEntry: zipcodeEntry })
+  const newUser = await User.create({ username: username, password: password, zipcodeEntry: zipcodeEntry });
+  console.log('this is newUser ---> ', newUser);
+  res.locals.newUser = newUser;
   return next();
 };
 

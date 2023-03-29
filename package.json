@@ -4,7 +4,7 @@
   "description": "Codesmith ECRI39 Scratch project",
   "main": "webpack.config.js",
   "scripts": {
-    "test": "NODE_ENV=test jest --verbose",
+    "test": "concurrently \"NODE_ENV=test nodemon server/server.js\" \"NODE_ENV=test jest --verbose\"",
     "start": "NODE_ENV=production nodemon server/server.js",
     "build": "NODE_ENV=production webpack",
     "dev": "concurrently \"nodemon server/server.js\" \"NODE_ENV=development webpack-dev-server --open --hot\"",
