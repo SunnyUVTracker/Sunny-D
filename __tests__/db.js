@@ -10,10 +10,13 @@ describe('insert', () => {
   
     beforeAll(async () => {
       connection = await mongoose.connect('mongodb://127.0.0.1:27017' );
+
       // db = await connection.db(globalThis.__MONGO_DB_NAME__);
     });
   
     afterAll(async () => {
+      await User.deleteMany({})
+
       await mongoose.connection.close();
     });
   
