@@ -23,10 +23,16 @@ describe('Route integration', () => {
             it('responds with the total points', () => request(server)
             .post('/api/submit')
             .send({username: 'testname', date: 'testdate', points: 10})
-            .then(data => {
-                console.log(data._body)
-                // expect
-            }))
+            .then(res => {
+                console.log('here is the response ---> ', res.body)
+                expect(res.body).should.have.property('username')
+                
+            })
+        //     .catch((err) =>{
+        //       console.log(err)
+        // })
+            )
+            // })
         })
     })
 })

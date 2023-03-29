@@ -2,10 +2,17 @@ const express = require('express');
 const mongoose = require('mongoose');
 const userController = require('./controllers/userController');
 const path = require('path');
+// require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
 
-
+let URL
+if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development'){
+  URL = 'mongodb://127.0.0.1:27017'
+} else {
+  URL = 'mongodb+srv://sunnyDTeam:test1234@sunnyd.gewq7u7.mongodb.net/?retryWrites=true&w=majority'
+}
+console.log('URL', URL);
 // Data Base
-mongoose.connect('mongodb://localhost/SunnyD', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(URL, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.once('open', () => {
   console.log('Connected to Database');
 });
@@ -24,6 +31,8 @@ if (process.env.NODE_ENV === 'production') {
   app.get('/', (req, res) => {
     return res.status(200).sendFile(path.join(__dirname, '../index.html'))
 });
+} else {
+  app.get('/home', (req, res) => res.redirect('/'));
 }
 
 api.get('/submit/:username', userController.getUser, (req, res)=>{
@@ -36,8 +45,16 @@ api.post('/submit', userController.updateUser, (req, res) => {
   return res.status(200).json(res.locals.totalPoints);
 });
 
+api.post('/signup', userController.createUser, (req, res) => {
+  return res.status(200).json(res.locals.newUser);
+});
+
+api.post('/verify', userController.logIn, (req, res) => {
+  return res.status(200).json(res.locals.user);
+});
 // Unknown route handler
 app.use((req, res) => res.sendStatus(404));
+
 
 // Global error handler
 app.use((err, req, res, next) => {

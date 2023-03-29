@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import BigButton from "./BigButton.jsx";
 import WeatherDisplay from "./WeatherDisplay.jsx";
 
+
 function Home() {
   const location = useLocation();
   console.log(location)
@@ -15,7 +16,7 @@ function Home() {
 
   useEffect(() => {
     fetch(
-      `http://api.weatherapi.com/v1/current.json?key=3b98cf2d582f413d83c172329232503&q=${location.state.zipcodeEntry}`
+      `http://api.weatherapi.com/v1/current.json?key=3b98cf2d582f413d83c172329232503&q=${location.state.zipcode}`
     )
       .then((res) => res.json())
       .then((res) => {
@@ -34,13 +35,13 @@ function Home() {
     <div id="home-page">
       <div id="content">
         <div>
-          <h1>HELLO, {location.state.nameEntry}!</h1>
+          <h1>HELLO, {location.state.name}!</h1>
           <div id="city">
             {city}, {region}
           </div>
 
           <WeatherDisplay
-            zipcodeEntry={location.state.zipcodeEntry}
+            zipcodeEntry={location.state.zipcode}
             temp={temp}
             uv={uv}
             condition={condition}
@@ -49,7 +50,7 @@ function Home() {
           />
         </div>
 
-        <BigButton username={location.state.nameEntry} uv={uv} />
+        <BigButton username={location.state.name} uv={uv} />
       </div>
       <div id="footer">
         <div id="developer">
@@ -62,47 +63,3 @@ function Home() {
 }
 
 export default Home;
-
-// http://api.weatherapi.com/v1/current.json?key=3b98cf2d582f413d83c172329232503&q=
-
-// {
-//     "location": {
-//         "name": "Seoul",
-//         "region": "",
-//         "country": "South Korea",
-//         "lat": 37.57,
-//         "lon": 127.0,
-//         "tz_id": "Asia/Seoul",
-//         "localtime_epoch": 1679766164,
-//         "localtime": "2023-03-26 2:42"
-//     },
-//     "current": {
-//         "last_updated_epoch": 1679765400,
-//         "last_updated": "2023-03-26 02:30",
-//         "temp_c": 10.0,
-//         "temp_f": 50.0,
-//         "is_day": 0,
-//         "condition": {
-//             "text": "Partly cloudy",
-//             "icon": "//cdn.weatherapi.com/weather/64x64/night/116.png",
-//             "code": 1003
-//         },
-//         "wind_mph": 2.2,
-//         "wind_kph": 3.6,
-//         "wind_degree": 320,
-//         "wind_dir": "NW",
-//         "pressure_mb": 1017.0,
-//         "pressure_in": 30.04,
-//         "precip_mm": 0.0,
-//         "precip_in": 0.0,
-//         "humidity": 50,
-//         "cloud": 75,
-//         "feelslike_c": 8.9,
-//         "feelslike_f": 48.0,
-//         "vis_km": 10.0,
-//         "vis_miles": 6.0,
-//         "uv": 1.0,
-//         "gust_mph": 7.2,
-//         "gust_kph": 11.5
-//     }
-// }
