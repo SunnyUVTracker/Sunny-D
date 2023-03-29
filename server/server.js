@@ -42,7 +42,7 @@ api.post('/signup', userController.createUser, (req, res) => {
   return res.status(200).json(res.locals.newUser);
 });
 
-api.post('/verify', userController.logIn, (req, res) => {
+api.post('/verify', userController.logIn, userController.getUser, (req, res) => {
   return res.status(200).json(res.locals.user);
 });
 // Unknown route handler
