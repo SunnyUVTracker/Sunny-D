@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const bcrypt = require('bcrypt');
 
 
 // User Schema
@@ -44,6 +45,24 @@ UserSchema.methods.comparePassword = function (enteredPassword, callback) {
 
 
 const User = mongoose.model('users', UserSchema);
-
-
 module.exports = User;
+
+
+
+
+// const UserController = {
+//   createUser(req, res, next) {
+//     const { username, password } = req.body;
+//     console.log(username, password);
+
+//     User.create({ username, password, money: 100 })
+//       .then((data) => {
+//         return next();
+//       })
+//       .catch((err) => {
+//         return next(err);
+//       });
+//   },
+
+
+
